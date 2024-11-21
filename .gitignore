@@ -1,0 +1,12 @@
+.DS_Store
+
+.fleet/scratches
+
+.gradle
+.kotlin
+androidTestProjects
+build
+shared test caches/
+
+local.properties
+keystore.properties
