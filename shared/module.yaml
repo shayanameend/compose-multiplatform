@@ -6,7 +6,27 @@ dependencies:
   - $compose.foundation: exported
   - $compose.material3: exported
   - $compose.materialIconsExtended: exported
+  - cafe.adriel.voyager:voyager-koin:1.0.0: exported
+  - cafe.adriel.voyager:voyager-navigator:1.0.0: exported
+  - io.insert-koin:koin-core:3.5.6: exported
+  - io.ktor:ktor-client-content-negotiation:2.3.11: exported
+  - io.ktor:ktor-client-core:2.3.11: exported
+  - io.ktor:ktor-serialization-kotlinx-json:2.3.11: exported
+  - media.kamel:kamel-image:0.9.5: exported
+  - org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose:2.8.0: exported
+
+dependencies@android:
+  - androidx.activity:activity-compose:1.8.2: exported
+  - androidx.compose.ui:ui-tooling:1.6.7: exported
+  - io.ktor:ktor-client-okhttp:2.3.11: exported
+
+dependencies@ios:
+  - io.ktor:ktor-client-darwin:2.3.11: exported
+
+dependencies@jvm:
+  - $compose.desktop.currentOs: exported
 
 settings:
-  compose:
-    enabled: true
+  compose: enabled
+  kotlin:
+    serialization: json

@@ -5,7 +5,12 @@ struct ComposeView: UIViewControllerRepresentable {
     func makeUIViewController(context: Context) -> some UIViewController {
         ViewControllerKt.ViewController()
     }
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+
+    func updateUIViewController(
+        _ uiViewController: UIViewControllerType,
+        context: Context
+    ) {
+    }
 }
 
 struct ContentView: View {
@@ -16,6 +21,10 @@ struct ContentView: View {
 
 @main
 struct iosApp: App {
+    init() {
+        KoinKt.start()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
