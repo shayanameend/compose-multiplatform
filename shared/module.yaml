@@ -23,9 +23,6 @@ dependencies@android:
 dependencies@ios:
   - io.ktor:ktor-client-darwin:2.3.11: exported
 
-dependencies@jvm:
-  - $compose.desktop.currentOs: exported
-
 settings:
   compose: enabled
   kotlin:
