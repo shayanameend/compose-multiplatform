@@ -1,10 +1,11 @@
-product: android/app
+product:
+  type: android/app
+  platforms: [android]
 
 dependencies:
   - ../shared
 
 settings:
   compose: enabled
-#  android:
-#    applicationId:
-#    namespace:
+  android:
+    namespace: com.zedsols
