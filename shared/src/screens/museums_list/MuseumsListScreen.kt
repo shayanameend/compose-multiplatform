@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -24,6 +23,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import data.museum.MuseumObject
 import io.kamel.image.KamelImage
 import io.kamel.image.asyncPainterResource
+import screens.LoadingScreen
 
 data object MuseumsListScreen : Screen {
     @Composable
@@ -40,12 +40,7 @@ data object MuseumsListScreen : Screen {
                     onClick = { },
                 )
             } else {
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Text(text = "No data available")
-                }
+                LoadingScreen()
             }
         }
     }
