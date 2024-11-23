@@ -20,7 +20,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import data.museum.MuseumObject
 import io.kamel.image.KamelImage
@@ -29,16 +28,16 @@ import io.kamel.image.asyncPainterResource
 data object MuseumsListScreen : Screen {
     @Composable
     override fun Content() {
-        val navigator: Navigator = LocalNavigator.currentOrThrow
-        val screenModel: MuseumsListScreenModel = getScreenModel()
+        val navigator = LocalNavigator.currentOrThrow
+        val screenModel = getScreenModel<MuseumsListScreenModel>()
 
-        val objects: List<MuseumObject> by screenModel.objects.collectAsStateWithLifecycle()
+        val objects by screenModel.objects.collectAsStateWithLifecycle()
 
-        AnimatedContent(objects.isNotEmpty()) { objectsAvailable: Boolean ->
+        AnimatedContent(objects.isNotEmpty()) { objectsAvailable ->
             if (objectsAvailable) {
-                ObjectGrid(
-                    objects = objects,
-                    onObjectClick = { },
+                MuseumsGrid(
+                    museums = objects,
+                    onClick = { },
                 )
             } else {
                 Box(
@@ -53,30 +52,30 @@ data object MuseumsListScreen : Screen {
 }
 
 @Composable
-private fun ObjectGrid(
-    objects: List<MuseumObject>,
-    onObjectClick: (Int) -> Unit,
+private fun MuseumsGrid(
+    museums: List<MuseumObject>,
+    onClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(180.dp),
         contentPadding = WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical).asPaddingValues(),
-        modifier = modifier.fillMaxSize().padding(
-            WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical).asPaddingValues()
-        ),
+        modifier = modifier
+            .fillMaxSize()
+            .padding(WindowInsets.safeDrawing.only(WindowInsetsSides.Vertical).asPaddingValues()),
     ) {
-        items(objects, key = { it.objectID }) { obj: MuseumObject ->
-            ObjectFrame(
-                obj = obj,
-                onClick = { onObjectClick(obj.objectID) },
+        items(museums, key = { it.objectID }) { museum ->
+            MuseumFrame(
+                museum = museum,
+                onClick = { onClick(museum.objectID) },
             )
         }
     }
 }
 
 @Composable
-private fun ObjectFrame(
-    obj: MuseumObject,
+private fun MuseumFrame(
+    museum: MuseumObject,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -86,8 +85,8 @@ private fun ObjectFrame(
             .clickable { onClick() }
     ) {
         KamelImage(
-            resource = asyncPainterResource(data = obj.primaryImageSmall),
-            contentDescription = obj.title,
+            resource = asyncPainterResource(data = museum.primaryImageSmall),
+            contentDescription = museum.title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
@@ -98,15 +97,15 @@ private fun ObjectFrame(
         Spacer(Modifier.height((2.dp)))
 
         Text(
-            text = obj.title,
+            text = museum.title,
             style = MaterialTheme.typography.titleMedium,
         )
         Text(
-            text = obj.artistDisplayName,
+            text = museum.artistDisplayName,
             style = MaterialTheme.typography.bodyMedium,
         )
         Text(
-            text = obj.objectDate,
+            text = museum.objectDate,
             style = MaterialTheme.typography.bodySmall,
         )
     }
